@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHttp } from '../../hooks/http.hook'
 import { v4 } from 'uuid'
-import {  heroAdded } from '../../actions'
 import Spinner from '../spinner/Spinner'
+import { heroCreated } from '../heroesList/heroesSlice'
 
 const HeroesAddForm = () => {
   const [heroName, setHeroName] = useState('')
@@ -26,7 +26,7 @@ const HeroesAddForm = () => {
 
     request('http://localhost:3001/heroes', 'POST', JSON.stringify(newHero))
       .then(response => console.log(response))
-      .then(dispatch(heroAdded(newHero)))
+      .then(dispatch(heroCreated(newHero)))
       .catch(err => console.log(err))
 
     setHeroElement('')
