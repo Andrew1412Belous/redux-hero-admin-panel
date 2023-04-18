@@ -4,13 +4,16 @@ import { useHttp } from '../../hooks/http.hook'
 import { v4 } from 'uuid'
 import Spinner from '../spinner/Spinner'
 import { heroCreated } from '../heroesList/heroesSlice'
+import { selectAll } from '../heroesFilters/filtersSlice'
+import store from '../../store'
 
 const HeroesAddForm = () => {
   const [heroName, setHeroName] = useState('')
   const [heroDescr, setHeroDescr] = useState('')
   const [heroElement, setHeroElement] = useState('')
 
-  const { filters, filtersLoading } = useSelector(state => state.filters)
+  const { filtersLoading } = useSelector(state => state.filters)
+  const filters = selectAll(store.getState())
   const dispatch = useDispatch()
   const { request } = useHttp()
 
