@@ -18,8 +18,9 @@ const HeroesFilters = () => {
 
   const filters = selectAll(store.getState())
 
-
-  useEffect(() => dispatch(fetchFilters()), [])
+  useEffect(() => {
+    dispatch(fetchFilters())
+  }, [])
 
   if (filtersLoadingStatus === "loading") {
     return <Spinner/>

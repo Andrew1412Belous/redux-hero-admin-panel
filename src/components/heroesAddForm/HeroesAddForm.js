@@ -1,36 +1,34 @@
 import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useHttp } from '../../hooks/http.hook'
-import { v4 } from 'uuid'
-import { heroCreated } from '../heroesList/heroesSlice'
-import { selectAll } from '../heroesFilters/filtersSlice'
-import store from '../../store'
+import { useSelector } from 'react-redux'
+import { v4 as uuidv4 } from 'uuid'
 
+import { selectAll } from '../heroesFilters/filtersSlice'
+import { useCreateHeroMutation } from '../../api/apiSlice'
+
+import store from '../../store'
 import Spinner from '../spinner/Spinner'
+
 const HeroesAddForm = () => {
+  const [createHero] = useCreateHeroMutation()
+
   const [heroName, setHeroName] = useState('')
   const [heroDescr, setHeroDescr] = useState('')
   const [heroElement, setHeroElement] = useState('')
 
   const { filtersLoading } = useSelector(state => state.filters)
   const filters = selectAll(store.getState())
-  const dispatch = useDispatch()
-  const { request } = useHttp()
 
   const onSubmit = (e) => {
     e.preventDefault()
 
     const newHero = {
-      id: v4(),
+      id: uuidv4(),
       name: heroName,
       description: heroDescr,
       element: heroElement,
     }
 
-    request('http://localhost:3001/heroes', 'POST', JSON.stringify(newHero))
-      .then(response => console.log(response))
-      .then(dispatch(heroCreated(newHero)))
-      .catch(err => console.log(err))
+    createHero(newHero).unwrap()
 
     setHeroElement('')
     setHeroDescr('')
