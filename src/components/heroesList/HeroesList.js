@@ -1,27 +1,32 @@
-import {useHttp} from '../../hooks/http.hook';
 import { useCallback, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux'
+
+import {
+    fetchHeroes,
+    filteredHeroesSelector,
+    heroDeleted
+} from './heroesSlice'
 
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
-import { fetchHeroes, filteredHeroesSelector } from './heroesSlice';
-import { heroDeleted } from './heroesSlice'
-import HeroesListItem from "../heroesListItem/HeroesListItem";
-import Spinner from '../spinner/Spinner';
+import { useHttp } from '../../hooks/http.hook'
+
+import HeroesListItem from "../heroesListItem/HeroesListItem"
+import Spinner from '../spinner/Spinner'
 
 import './heroesList.scss'
 
 const HeroesList = () => {
     const filteredHeroes = useSelector(filteredHeroesSelector)
-    const heroesLoadingStatus = useSelector(state => state.heroes.heroesLoadingStatus);
-    const dispatch = useDispatch();
-    const {request} = useHttp();
+    const heroesLoadingStatus = useSelector(state => state.heroes.heroesLoadingStatus)
 
-    useEffect(() => {
-        dispatch(fetchHeroes())
-    }, []);
+    const dispatch = useDispatch()
 
-    const onDelete = useCallback((id) => {
+    const { request } = useHttp()
+
+    useEffect(() => dispatch(fetchHeroes()), []);
+
+    const onDelete = useCallback(id => {
         request(`http://localhost:3001/heroes/${id}`, 'DELETE')
           .then(response => console.log(response))
           .then(dispatch(heroDeleted(id)))
@@ -29,7 +34,7 @@ const HeroesList = () => {
     }, [request])
 
     if (heroesLoadingStatus === "loading") {
-        return <Spinner/>;
+        return <Spinner/>
     } else if (heroesLoadingStatus === "error") {
         return <h5 className="text-center mt-5">Ошибка загрузки</h5>
     }
@@ -45,7 +50,7 @@ const HeroesList = () => {
             )
         }
 
-        return arr.map(({id, ...props}) => {
+        return arr.map(({ id, ...props }) => {
             return (
               <CSSTransition
                 key={id}
@@ -57,7 +62,8 @@ const HeroesList = () => {
         })
     }
 
-    const elements = renderHeroesList(filteredHeroes);
+    const elements = renderHeroesList(filteredHeroes)
+
     return (
       <TransitionGroup component="ul">
             {elements}
@@ -65,4 +71,4 @@ const HeroesList = () => {
     )
 }
 
-export default HeroesList;
+export default HeroesList

@@ -2,11 +2,11 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHttp } from '../../hooks/http.hook'
 import { v4 } from 'uuid'
-import Spinner from '../spinner/Spinner'
 import { heroCreated } from '../heroesList/heroesSlice'
 import { selectAll } from '../heroesFilters/filtersSlice'
 import store from '../../store'
 
+import Spinner from '../spinner/Spinner'
 const HeroesAddForm = () => {
   const [heroName, setHeroName] = useState('')
   const [heroDescr, setHeroDescr] = useState('')
@@ -39,7 +39,7 @@ const HeroesAddForm = () => {
 
   const renderFilters = (arr, status) => {
     if (status === "loading") {
-      return <Spinner/>;
+      return <Spinner/>
     } else if (status === "error") {
       return <h5 className="text-center mt-5">Ошибка загрузки</h5>
     }
@@ -102,4 +102,4 @@ const HeroesAddForm = () => {
   )
 }
 
-export default HeroesAddForm;
+export default HeroesAddForm

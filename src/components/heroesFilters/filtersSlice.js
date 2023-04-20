@@ -1,4 +1,9 @@
-import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit'
+import {
+  createAsyncThunk,
+  createEntityAdapter,
+  createSlice
+} from '@reduxjs/toolkit'
+
 import { useHttp } from '../../hooks/http.hook'
 
 const filtersAdapter = createEntityAdapter()
@@ -25,7 +30,7 @@ const filtersSlice = createSlice({
       state.activeFilter = action.payload
     }
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
       .addCase(fetchFilters.pending, state => {
         state.filtersLoadingStatus = 'loading'

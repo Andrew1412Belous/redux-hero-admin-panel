@@ -1,25 +1,28 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
+
 import {
-  filtersChanged, selectAll,
+  filtersChanged,
+  selectAll,
+  fetchFilters
 } from './filtersSlice'
+
 import Spinner from '../spinner/Spinner'
 import classNames from 'classnames'
-import { fetchFilters } from './filtersSlice'
 import store from '../../store'
 
 const HeroesFilters = () => {
   const { filtersLoadingStatus, activeFilter } = useSelector(state => state.filters)
+
   const dispatch = useDispatch()
+
   const filters = selectAll(store.getState())
 
 
-  useEffect(() => {
-    dispatch(fetchFilters())
-  }, [])
+  useEffect(() => dispatch(fetchFilters()), [])
 
   if (filtersLoadingStatus === "loading") {
-    return <Spinner/>;
+    return <Spinner/>
   } else if (filtersLoadingStatus === "error") {
     return <h5 className="text-center mt-5">Ошибка загрузки</h5>
   }
@@ -57,4 +60,4 @@ const HeroesFilters = () => {
   )
 }
 
-export default HeroesFilters;
+export default HeroesFilters

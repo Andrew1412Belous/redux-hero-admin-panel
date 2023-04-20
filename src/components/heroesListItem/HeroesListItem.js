@@ -1,22 +1,21 @@
-const HeroesListItem = ({name, description, element, onDelete}) => {
-
-    let elementClassName;
+const HeroesListItem = ({ name, description, element, onDelete }) => {
+    let elementClassName
 
     switch (element) {
         case 'fire':
-            elementClassName = 'bg-danger bg-gradient';
-            break;
+            elementClassName = 'bg-danger bg-gradient'
+            break
         case 'water':
-            elementClassName = 'bg-primary bg-gradient';
-            break;
+            elementClassName = 'bg-primary bg-gradient'
+            break
         case 'wind':
-            elementClassName = 'bg-success bg-gradient';
-            break;
+            elementClassName = 'bg-success bg-gradient'
+            break
         case 'earth':
-            elementClassName = 'bg-secondary bg-gradient';
-            break;
+            elementClassName = 'bg-secondary bg-gradient'
+            break
         default:
-            elementClassName = 'bg-warning bg-gradient';
+            elementClassName = 'bg-warning bg-gradient'
     }
 
     return (
@@ -42,4 +41,4 @@ const HeroesListItem = ({name, description, element, onDelete}) => {
     )
 }
 
-export default HeroesListItem;
+export default HeroesListItem

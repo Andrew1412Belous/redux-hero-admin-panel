@@ -1,4 +1,3 @@
-
 const Spinner = () => {
     return (
         <div className="spinner-border mx-auto mt-5" role="status">
@@ -7,4 +6,4 @@ const Spinner = () => {
     )
 }
 
-export default Spinner;
+export default Spinner

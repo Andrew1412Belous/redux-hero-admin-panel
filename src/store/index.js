@@ -1,6 +1,7 @@
+import { configureStore } from '@reduxjs/toolkit'
+
 import heroes from '../components/heroesList/heroesSlice'
 import filters from '../components/heroesFilters/filtersSlice'
-import { configureStore } from '@reduxjs/toolkit'
 
 const stringMiddleware = () => (next) => (action) => action.typeof === 'string'
   ? next({
@@ -14,4 +15,4 @@ const store = configureStore({
   devTools: process.env.NODE_ENV !== 'production',
 })
 
-export default store;
+export default store
